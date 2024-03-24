@@ -49,11 +49,9 @@ jobs:
     # 配置 QDK 环境并创建 QPKG
     - name: Configure QDK environment
       run: |
-        cat /etc/config/qdk.conf
-        echo "======"
-        LESS="-R" less a.conf
         # 获取 QDK 安装路径并切换目录
-        cd `grep "QDK" /etc/config/qdk.conf | cut -d '=' -f 2`
+        cd /usr/share/QDK
+        ls
         # 使用环境变量 QPKG_NAME 创建 QPKG
         qbuild --create-env $QPKG_NAME
 
