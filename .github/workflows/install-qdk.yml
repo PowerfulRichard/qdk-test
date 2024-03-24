@@ -52,7 +52,7 @@ jobs:
         # 获取 QDK 安装路径并切换目录
         cd /usr/share/QDK/bin
         # 使用环境变量 QPKG_NAME 创建 QPKG
-        ./qbuild --create-env $QPKG_NAME
+        sudo ./qbuild --create-env $QPKG_NAME
 
     # 编辑 qpkg.cfg 文件中的变量
     - name: Edit qpkg.cfg variables
