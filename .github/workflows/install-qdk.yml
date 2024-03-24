@@ -57,7 +57,6 @@ jobs:
     # 编辑 qpkg.cfg 文件中的变量
     - name: Edit qpkg.cfg variables
       run: |
-        find / -name MyQPKG -d
         # 前往 QPKG 文件夹
-        cd $QPKG_NAME
+        cd /usr/share/QDK/bin/$QPKG_NAME
         cat qpkg.cfg
