@@ -50,7 +50,7 @@ jobs:
     - name: Configure QDK environment
       run: |
         # 获取 QDK 安装路径并切换目录
-        cd `getconf QDK Install_Path -f /etc/config/qpkg.conf`
+        cd `grep "QDK" /etc/config/qpkg.conf | cut -d '=' -f 2`
         # 使用环境变量 QPKG_NAME 创建 QPKG
         qbuild --create-env $QPKG_NAME
 
