@@ -30,15 +30,27 @@ jobs:
     # 克隆 QDK 存储库并安装
     - name: Install QDK
       run: |
+        sudo apt-get install -y build-essential wget bsdmainutils curl openssl rsync
         git clone https://github.com/qnap-dev/QDK.git
         cd QDK
-        sudo ./InstallToUbuntu.sh install
+        echo "Compiler QPKG encrypt"
+        cd src
+        make
+        cd ../
+        echo "Install QDK"
+        cp -rf ./shared /usr/share/QDK
+        [ -d "/etc/config" ] || mkdir "/etc/config"
+        cp ./shared/qdk.conf /etc/config
+        sed -e '2d' ./shared/qdk.conf > /etc/config/qdk.conf
+        sed -i '2iQDK_PATH_P=/usr/share' /etc/config/qdk.conf
+        echo "PATH=$PATH:/usr/share/QDK/bin" >> ~/.bashrc
+        source ~/.bashrc
 
     # 配置 QDK 环境并创建 QPKG
     - name: Configure QDK environment
       run: |
         # 获取 QDK 安装路径并切换目录
-        cd `getcfg QDK Install_Path -f /etc/config/qpkg.conf`
+        cd `getconf QDK Install_Path -f /etc/config/qpkg.conf`
         # 使用环境变量 QPKG_NAME 创建 QPKG
         qbuild --create-env $QPKG_NAME
 
