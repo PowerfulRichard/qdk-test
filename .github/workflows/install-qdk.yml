@@ -1,0 +1,21 @@
+name: Install QDK on Ubuntu 22
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install QDK
+      run: |
+        git clone https://github.com/qnap-dev/QDK.git
+        cd QDK
+        sudo ./InstallToUbuntu.sh install
