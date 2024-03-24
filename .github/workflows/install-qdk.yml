@@ -41,9 +41,9 @@ jobs:
         sudo cp -rf ./shared /usr/share/QDK
         sudo [ -d "/etc/config" ] || sudo mkdir "/etc/config"
         sudo cp ./shared/qdk.conf /etc/config
-        sudo sed -e '2d' ./shared/qdk.conf > /etc/config/qdk.conf
+        sudo sed -e '2d' ./shared/qdk.conf | sudo tee /etc/config/qdk.conf > /dev/null
         sudo sed -i '2iQDK_PATH_P=/usr/share' /etc/config/qdk.conf
-        sudo echo "PATH=$PATH:/usr/share/QDK/bin" >> ~/.bashrc
+        sudo echo "PATH=$PATH:/usr/share/QDK/bin" | sudo tee -a ~/.bashrc > /dev/null
         sudo source ~/.bashrc
 
     # 配置 QDK 环境并创建 QPKG
