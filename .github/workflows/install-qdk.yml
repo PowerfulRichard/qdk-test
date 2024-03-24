@@ -50,8 +50,7 @@ jobs:
     - name: Configure QDK environment
       run: |
         # 获取 QDK 安装路径并切换目录
-        cd /usr/share/QDK
-        ls
+        cd /usr/share/QDK/bin
         # 使用环境变量 QPKG_NAME 创建 QPKG
         qbuild --create-env $QPKG_NAME
 
