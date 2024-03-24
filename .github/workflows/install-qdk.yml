@@ -41,7 +41,6 @@ jobs:
         sudo cp -rf ./shared /usr/share/QDK
         sudo [ -d "/etc/config" ] || sudo mkdir "/etc/config"
         sudo cp ./shared/qdk.conf /etc/config
-        ls --color=always /etc/config
         sudo sed -e '2d' ./shared/qdk.conf | sudo tee /etc/config/qdk.conf > /dev/null
         sudo sed -i '2iQDK_PATH_P=/usr/share' /etc/config/qdk.conf
         sudo echo "PATH=$PATH:/usr/share/QDK/bin" | sudo tee -a ~/.bashrc > /dev/null
@@ -50,8 +49,11 @@ jobs:
     # 配置 QDK 环境并创建 QPKG
     - name: Configure QDK environment
       run: |
+        cat /etc/config/qdk.conf
+        echo "======"
+        LESS="-R" less a.conf
         # 获取 QDK 安装路径并切换目录
-        cd `grep "QDK" /etc/config/qpkg.conf | cut -d '=' -f 2`
+        cd `grep "QDK" /etc/config/qdk.conf | cut -d '=' -f 2`
         # 使用环境变量 QPKG_NAME 创建 QPKG
         qbuild --create-env $QPKG_NAME
 
